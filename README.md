@@ -1,5 +1,5 @@
  # README Generator
-![GitHub License](https://img.shields.io/badge/license-MIT License-blue.svg)
+![GitHub License](https://img.shields.io/badge/license-MITLicense-blue.svg)
     
 ## Description
 
