@@ -7,37 +7,7 @@ inquirer
     type: 'input',
     message: 'What is the title of the project?',
     name: 'title',
-    },
-    {
-    type: 'input',
-    message: 'Please list the 1st item in your table of contents',
-    name: 'content1',
-    },
-    {
-    type: 'input',
-    message: 'Please list the 2nd item in your table of contents',
-    name: 'content2',
-    },
-    {
-    type: 'input',
-    message: 'Please list the 3rd item in your table of contents',
-    name: 'content3',
-    },
-    {
-    type: 'input',
-    message: 'Please list the 4th item in your table of contents',
-    name: 'content4',
-    },
-    {
-    type: 'input',
-    message: 'Please list the 5th item in your table of contents',
-    name: 'content5',
-    },
-    {
-    type: 'input',
-    message: 'Please list the 6th item in your table of contents',
-    name: 'content6',
-    },
+    },    
     {
     type: 'input',
     message: 'Please enter a description of the project',
@@ -55,8 +25,8 @@ inquirer
     },
     {
     type: 'input',
-    message: 'Please list the contributors for this project',
-    name: 'contributors',
+    message: 'Please explain the contributing guidelines for this project',
+    name: 'contributing',
     },
     {
     type: 'input',
@@ -64,11 +34,9 @@ inquirer
     name: 'test',
     },   
     {
-    type:'multiple choice',
+    type:'list',
     message: 'Which license are you using?',
-    choice1: 'Apache License 2.0',
-    choice2: 'MIT License',
-    choice3: 'Mozilla Public License 2.0',  
+    choices: ['Apache License 2.0', 'MIT License', 'Mozillar Public License 2.0', 'GNU Public License'],
     name: 'license',   
     },
     {
@@ -82,40 +50,53 @@ inquirer
     name: 'email',    
     },
 
-]).then((data) => {
-    const { title, content1, content2, content3, content4, content5, content6, description, instructions, usage, contributors, test, license, username, email } = data
-    const generateREADME = `
-
-#${title}
-##Table of Contents
-    *${content1}
-    *${content2}
-    *${content3} 
-    *${content4} 
-    *${content5}
-    *${content6}
-##Description
-${description}
-##Instructions 
-${instructions}
-##Usage
-${usage}
-##Contributors
-${contributors}
-##Test
-${test}
-##License
-${license}
-##Github Username
-${username}
-##E-mail
-${email}        
-    `
+]).then((response)=> {
+    const title = response.title.split(" ").join("-");
+    fs.writeFile(`${title}-README.md`, `# ${response.title}
+![GitHub License](https://img.shields.io/badge/license-${response.license}-blue.svg)
     
-      fs.writeFile("README.md", generateREADME, (err) =>  
-      err ? console.log(err) : console.log('success!')
-      );  
-  });
+## Description
+
+${response.description}
+    
+## Table of Contents
+    
+* [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Contributing](#contributing)
+* [Tests](#test)
+* [Questions](#questions)
+    
+## Installation
+    
+${response.instructions}
+    
+## Usage
+    
+${response.usage}
+    
+## License
+    
+This application is covered under the ${response.license} license.
+    
+## Contributing
+    
+${response.contributing}
+    
+## Tests
+    
+${response.test}
+    
+## Questions
+    
+My GitHub profile is located at:
+https://github.com/${response.username}
+    
+For any questions, please email me at:
+${response.email}`, (err)=>    
+    err ? console.log(err) : console.log("Success"))
+});
 
 
 
