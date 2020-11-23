@@ -30,8 +30,8 @@ This application is covered under the MIT License license.
     
 Anyone is free to use this application as needed. Pull requests, feedback and ideas are welcome. 
     
-## Tests
-    
+## Video Walkthrough
+https://drive.google.com/file/d/1BPHnDHNX5raVf3StSZtxom7pSkxMK8_w/view   
 
     
 ## Questions
